@@ -17,11 +17,14 @@ public class Predator implements Creature {
         return texture;
     }
 
+    @Override
+    public void searchMeal() {
+
+    }
+
     public Predator(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
-
-
 
     @Override
     public void makeMove() {

@@ -1,5 +1,6 @@
 package Entity;
 import Entity.Creature.Creature;
+import Entity.Creature.Herbivore;
 import Entity.Creature.Predator;
 
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.Map;
 public class GameMap {
 
     private final static int x = 10;
-    private final static int y = 5;
+    private final static int y = 10;
     private final static String defaultTexture = " * ";
     private static Map<Coordinates, Creature> listOfCreature = new HashMap<>();
 
@@ -19,6 +20,9 @@ public class GameMap {
         listOfCreature.put(predator1.getCoordinates(), predator1);
         listOfCreature.put(predator2.getCoordinates(), predator2);
         listOfCreature.put(predator3.getCoordinates(), predator3);
+
+        Herbivore herbivore1 = new Herbivore(new Coordinates(5, 9));
+        listOfCreature.put(herbivore1.getCoordinates(), herbivore1);
     }
 
 //    public void createGameMap(){
@@ -41,7 +45,7 @@ public class GameMap {
                 boolean drawDefaultTexture = true;
                 for(Map.Entry<Coordinates, Creature> creature : listOfCreature.entrySet()){
                     Coordinates coordinates = creature.getKey();
-                    if(coordinates.getX() == i && coordinates.getY() == j){
+                    if(coordinates.getY() == i && coordinates.getX() == j){
                         drawDefaultTexture = false;
                         System.out.print(creature.getValue().getTexture());
                     }
@@ -51,6 +55,14 @@ public class GameMap {
                 }
             }
             System.out.println();
+        }
+    }
+
+    public static void getListOfCreature(){
+        fillingListOfCreature();
+        for(Map.Entry<Coordinates, Creature> creature : listOfCreature.entrySet()){
+            String str = creature.getValue().getTexture();
+            System.out.print(str);
         }
     }
 
