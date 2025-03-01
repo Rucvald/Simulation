@@ -10,4 +10,9 @@ public class Herbivore implements Creature {
     public void eat() {
 
     }
+
+    @Override
+    public String getTexture() {
+        return " H ";
+    }
 }
