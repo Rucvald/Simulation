@@ -20,14 +20,15 @@ public class Herbivore implements Creature {
     }
 
     @Override
-    public void makeMove(Map<Coordinates, Entity> listOfCreature) {
+    public void makeMove(Map<Coordinates, Entity> listOfEntity) {
 
     }
 
     @Override
-    public void eat() {
+    public void eat(Map<Coordinates, Entity> listOfEntity) {
 
     }
+
 
     @Override
     public String getTexture() {
@@ -38,5 +39,9 @@ public class Herbivore implements Creature {
     public Coordinates searchMeal(Map<Coordinates, Entity> listOfCreature) {
 
         return null;
+    }
+
+    public void death(Map<Coordinates, Entity> listOfEntity) {
+        listOfEntity.remove(coordinates);
     }
 }

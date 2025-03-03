@@ -15,6 +15,11 @@ public class Coordinates {
         this.y = coordinates.getY();
     }
 
+    public void setCoordinates(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public Coordinates getCoordinates() {
         return new Coordinates(x, y);
     }
