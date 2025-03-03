@@ -36,5 +36,7 @@ public class Coordinates {
         this.x = x;
     }
 
-
+    public int getSumOfCoordinates() {
+        return x + y;
+    }
 }

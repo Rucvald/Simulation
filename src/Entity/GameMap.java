@@ -1,5 +1,4 @@
 package Entity;
-import Entity.Creature.Creature;
 import Entity.Creature.Herbivore;
 import Entity.Creature.Predator;
 
@@ -11,18 +10,18 @@ public class GameMap {
     private final static int x = 10;
     private final static int y = 10;
     private final static String defaultTexture = " * ";
-    private static Map<Coordinates, Creature> listOfCreature = new HashMap<>();
+    public static Map<Coordinates, Entity> listOfEntity = new HashMap<>();
 
     public static void fillingListOfCreature(){
         Predator predator1 = new Predator(new Coordinates(1, 1));
         Predator predator2 = new Predator(new Coordinates(2, 2));
         Predator predator3 = new Predator(new Coordinates(3, 3));
-        listOfCreature.put(predator1.getCoordinates(), predator1);
-        listOfCreature.put(predator2.getCoordinates(), predator2);
-        listOfCreature.put(predator3.getCoordinates(), predator3);
+        listOfEntity.put(predator1.getCoordinates(), predator1);
+        listOfEntity.put(predator2.getCoordinates(), predator2);
+        listOfEntity.put(predator3.getCoordinates(), predator3);
 
         Herbivore herbivore1 = new Herbivore(new Coordinates(5, 9));
-        listOfCreature.put(herbivore1.getCoordinates(), herbivore1);
+        listOfEntity.put(herbivore1.getCoordinates(), herbivore1);
     }
 
 //    public void createGameMap(){
@@ -43,7 +42,7 @@ public class GameMap {
         for(int i = 0; i < y; i++){
             for(int j = 0; j < x; j++){
                 boolean drawDefaultTexture = true;
-                for(Map.Entry<Coordinates, Creature> creature : listOfCreature.entrySet()){
+                for(Map.Entry<Coordinates, Entity> creature : listOfEntity.entrySet()){
                     Coordinates coordinates = creature.getKey();
                     if(coordinates.getY() == i && coordinates.getX() == j){
                         drawDefaultTexture = false;
@@ -60,7 +59,7 @@ public class GameMap {
 
     public static void getListOfCreature(){
         fillingListOfCreature();
-        for(Map.Entry<Coordinates, Creature> creature : listOfCreature.entrySet()){
+        for(Map.Entry<Coordinates, Entity> creature : listOfEntity.entrySet()){
             String str = creature.getValue().getTexture();
             System.out.print(str);
         }

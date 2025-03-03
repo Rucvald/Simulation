@@ -1,6 +1,9 @@
 package Entity.Creature;
 
 import Entity.Coordinates;
+import Entity.Entity;
+
+import java.util.Map;
 
 public class Herbivore implements Creature {
 
@@ -17,7 +20,7 @@ public class Herbivore implements Creature {
     }
 
     @Override
-    public void makeMove() {
+    public void makeMove(Map<Coordinates, Entity> listOfCreature) {
 
     }
 
@@ -32,7 +35,8 @@ public class Herbivore implements Creature {
     }
 
     @Override
-    public void searchMeal() {
+    public Coordinates searchMeal(Map<Coordinates, Entity> listOfCreature) {
 
+        return null;
     }
 }
