@@ -5,7 +5,7 @@ import Entity.Entity;
 import Entity.GameMap;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Iterator;
 
 public class Predator implements Creature {
 
@@ -21,39 +21,37 @@ public class Predator implements Creature {
         return texture;
     }
 
-    @Override
-    public Coordinates searchMeal(Map<Coordinates, Entity> listOfCreature) {
-        int distance = 0;
+    public Coordinates searchMeal(ArrayList<Creature> listOfHerbivores) {
+        int distance = Integer.MAX_VALUE;
         Coordinates targetCoordinates = coordinates.getCoordinates();
-        for (Entity creature : listOfCreature.values()) {
-            if (creature instanceof Herbivore) {
-                int variableDistance = Math.abs(((Herbivore) creature).getCoordinates().getSumOfCoordinates()
-                        - coordinates.getSumOfCoordinates());
-                if (variableDistance > distance) {
-                    distance = variableDistance;
-                    targetCoordinates = ((Herbivore) creature).getCoordinates();
-                }
+        for (Creature herbivore : listOfHerbivores) {
+            int variableDistance = Math.abs(herbivore.getCoordinates().getSumOfCoordinates()
+                    - coordinates.getSumOfCoordinates());
+            if (variableDistance < distance) {
+                distance = variableDistance;
+                targetCoordinates = herbivore.getCoordinates();
             }
         }
+        System.out.println(distance);
         return targetCoordinates;
     }
 
-    public void takeStep(Coordinates targetCoordinates){
+    public void takeStep(Coordinates targetCoordinates) {
         int distanceX = Math.abs(targetCoordinates.getX() - coordinates.getX());
         int distanceY = Math.abs(targetCoordinates.getY() - coordinates.getY());
         if (distanceX >= distanceY && (distanceX != 0 || distanceY != 0)) {
-            if (targetCoordinates.getX() > coordinates.getX()){
+            if (targetCoordinates.getX() > coordinates.getX()) {
                 coordinates.setX(coordinates.getX() + speed);
             }
-            if (targetCoordinates.getX() < coordinates.getX()){
+            if (targetCoordinates.getX() < coordinates.getX()) {
                 coordinates.setX(coordinates.getX() - speed);
             }
         }
-        if (distanceY > distanceX ){
-            if (targetCoordinates.getY() > coordinates.getY()){
+        if (distanceY > distanceX) {
+            if (targetCoordinates.getY() > coordinates.getY()) {
                 coordinates.setY(coordinates.getY() + speed);
             }
-            if (targetCoordinates.getY() < coordinates.getY()){
+            if (targetCoordinates.getY() < coordinates.getY()) {
                 coordinates.setY(coordinates.getY() - speed);
             }
         }
@@ -64,29 +62,31 @@ public class Predator implements Creature {
     }
 
     @Override
-    public void makeMove(Map<Coordinates, Entity> listOfEntity) {
-        takeStep(searchMeal(GameMap.listOfEntity));
+    public void makeMove(ArrayList<Creature> listOfHerbivores) {
+        takeStep(searchMeal(listOfHerbivores));
     }
 
-    public void eat(Map<Coordinates, Entity> listOfEntity){
+    public void eat(ArrayList<Creature> listOfHerbivores) {
         ArrayList<Coordinates> coordinatesOfPotentialMeal = new ArrayList<>();
         coordinatesOfPotentialMeal.add(new Coordinates(coordinates.getX(), coordinates.getY() + 1));
         coordinatesOfPotentialMeal.add(new Coordinates(coordinates.getX() + 1, coordinates.getY()));
         coordinatesOfPotentialMeal.add(new Coordinates(coordinates.getX(), coordinates.getY() - 1));
         coordinatesOfPotentialMeal.add(new Coordinates(coordinates.getX() - 1, coordinates.getY()));
-        for (Entity herbivore : listOfEntity.values()) {
-            if (herbivore instanceof Herbivore) {
-                for (Coordinates coordinatesOPM : coordinatesOfPotentialMeal) {
-                    if (((Herbivore) herbivore).getCoordinates().getX() == coordinatesOPM.getX() &&
-                    ((Herbivore) herbivore).getCoordinates().getY() == coordinatesOPM.getY()) {
-                        ((Herbivore) herbivore).death(listOfEntity);
-                    }
+        Iterator<Creature> iterator = listOfHerbivores.iterator();
+        while (iterator.hasNext()) {
+            Creature herbivore = iterator.next();
+            for (Coordinates coordinatesOPM : coordinatesOfPotentialMeal) {
+                if (herbivore.getCoordinates().getX() == coordinatesOPM.getX() &&
+                        herbivore.getCoordinates().getY() == coordinatesOPM.getY()) {
+                    iterator.remove();
+                    System.out.println("Predator eats herbivore");
+                    break;
                 }
             }
         }
     }
 
-    public void attack(){
+    public void attack() {
 
     }
 
@@ -98,4 +98,8 @@ public class Predator implements Creature {
         this.coordinates = coordinates;
     }
 
+    @Override
+    public String toString() {
+        return texture + ": X - " + coordinates.getX() + " Y - " + coordinates.getY() + " \n";
+    }
 }

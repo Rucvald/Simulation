@@ -1,27 +1,31 @@
 package Entity;
+
+import Entity.Creature.Creature;
 import Entity.Creature.Herbivore;
 import Entity.Creature.Predator;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class GameMap {
 
     private final static int x = 10;
     private final static int y = 10;
     private final static String defaultTexture = " * ";
-    public static Map<Coordinates, Entity> listOfEntity = new HashMap<>();
+    public static ArrayList<Creature> listOfPredators = new ArrayList<>();
+    public static ArrayList<Creature> listOfHerbivores = new ArrayList<>();
 
-    public static void fillingListOfCreature(){
+    public static void fillingListOfEntity() {
         Predator predator1 = new Predator(new Coordinates(1, 1));
-        Predator predator2 = new Predator(new Coordinates(2, 2));
-        Predator predator3 = new Predator(new Coordinates(3, 3));
-        listOfEntity.put(predator1.getCoordinates(), predator1);
-        listOfEntity.put(predator2.getCoordinates(), predator2);
-        listOfEntity.put(predator3.getCoordinates(), predator3);
+        //Predator predator2 = new Predator(new Coordinates(2, 2));
+        //Predator predator3 = new Predator(new Coordinates(3, 3));
+        listOfPredators.add(predator1);
+        //listOfPredators.put(predator2.getCoordinates(), predator2);
+        //listOfPredators.put(predator3.getCoordinates(), predator3);
 
         Herbivore herbivore1 = new Herbivore(new Coordinates(5, 9));
-        listOfEntity.put(herbivore1.getCoordinates(), herbivore1);
+        Herbivore herbivore2 = new Herbivore(new Coordinates(0, 9));
+        listOfHerbivores.add(herbivore1);
+        listOfHerbivores.add(herbivore2);
     }
 
 //    public void createGameMap(){
@@ -33,35 +37,43 @@ public class GameMap {
 //        }
 //    }
 
-    public String getTexture(){
+    public String getTexture() {
         return defaultTexture;
     }
 
-    public static void printGameMap(){
-        fillingListOfCreature();
-        for(int i = 0; i < y; i++){
-            for(int j = 0; j < x; j++){
+    public static void printGameMap() {
+        System.out.println();
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
                 boolean drawDefaultTexture = true;
-                for(Map.Entry<Coordinates, Entity> creature : listOfEntity.entrySet()){
-                    Coordinates coordinates = creature.getKey();
-                    if(coordinates.getY() == i && coordinates.getX() == j){
+                for (Entity creature : listOfPredators) {
+                    Coordinates coordinates = creature.getCoordinates();
+                    if (coordinates.getY() == i && coordinates.getX() == j) {
                         drawDefaultTexture = false;
-                        System.out.print(creature.getValue().getTexture());
+                        System.out.print(creature.getTexture());
                     }
                 }
-                if(drawDefaultTexture){
+                for (Creature herbivore : listOfHerbivores) {
+                    Coordinates coordinates = herbivore.getCoordinates();
+                    if (coordinates.getY() == i && coordinates.getX() == j) {
+                        drawDefaultTexture = false;
+                        System.out.print(herbivore.getTexture());
+                    }
+                }
+                if (drawDefaultTexture) {
                     System.out.print(" * ");
                 }
             }
             System.out.println();
         }
+        System.out.println();
+        System.out.println("---");
+        System.out.println();
     }
 
-    public static void getListOfCreature(){
-        fillingListOfCreature();
-        for(Map.Entry<Coordinates, Entity> creature : listOfEntity.entrySet()){
-            String str = creature.getValue().getTexture();
-            System.out.print(str);
+    public static void getListOfEntity() {
+        for (Entity entity : listOfPredators) {
+            System.out.print(entity.toString());
         }
     }
 

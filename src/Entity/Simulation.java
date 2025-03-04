@@ -1,21 +1,33 @@
 package Entity;
 
+import Entity.Creature.Creature;
+import Entity.Creature.Herbivore;
 import Entity.Creature.Predator;
 
-import java.util.Map;
+import java.util.ArrayList;
 
 public class Simulation {
 
-    public static void startSimulation() {
+    public static void startSimulation() throws InterruptedException {
+        GameMap.fillingListOfEntity();
         GameMap.printGameMap();
-        //GameMap.getListOfCreature();
-    }
-    public void lifeCycleOfPredator(Map<Coordinates, Entity> listOfEntity){
-        for(Map.Entry<Coordinates, Entity> predator : listOfEntity.entrySet()){
-            if (predator instanceof Predator){
-                ((Predator) predator).makeMove(listOfEntity);
-                ((Predator) predator).eat(listOfEntity);
+        boolean herbivoreExistence = true;
+        while (herbivoreExistence) {
+            Thread.sleep(3000);
+            lifeCycleOfPredator(GameMap.listOfPredators, GameMap.listOfHerbivores);
+            GameMap.printGameMap();
+            if (GameMap.listOfHerbivores.isEmpty()) {
+                herbivoreExistence = false;
             }
         }
     }
+
+    public static void lifeCycleOfPredator(ArrayList<Creature> listOfPredators, ArrayList<Creature> listOfHerbivores) {
+        for (Creature predator : listOfPredators) {
+            ((Predator) predator).makeMove(listOfHerbivores);
+            predator.eat(listOfHerbivores);
+        }
+    }
+
+
 }

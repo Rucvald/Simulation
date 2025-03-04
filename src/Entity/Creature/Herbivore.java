@@ -3,6 +3,8 @@ package Entity.Creature;
 import Entity.Coordinates;
 import Entity.Entity;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Herbivore implements Creature {
@@ -20,12 +22,12 @@ public class Herbivore implements Creature {
     }
 
     @Override
-    public void makeMove(Map<Coordinates, Entity> listOfEntity) {
+    public void makeMove(ArrayList<Creature> listOfEntity) {
 
     }
 
     @Override
-    public void eat(Map<Coordinates, Entity> listOfEntity) {
+    public void eat(ArrayList<Creature> listOfEntity) {
 
     }
 
@@ -35,13 +37,17 @@ public class Herbivore implements Creature {
         return texture;
     }
 
-    @Override
-    public Coordinates searchMeal(Map<Coordinates, Entity> listOfCreature) {
+    public Coordinates searchMeal(ArrayList<Entity> listOfEntity) {
 
         return null;
     }
 
-    public void death(Map<Coordinates, Entity> listOfEntity) {
-        listOfEntity.remove(coordinates);
+    public void death(ArrayList<Herbivore> listOfHerbivores, Coordinates coordinatesOfPotentialMeal) {
+        Iterator<Herbivore> iterator = listOfHerbivores.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().getCoordinates().equals(coordinatesOfPotentialMeal)) {
+                iterator.remove();
+            }
+        }
     }
 }
