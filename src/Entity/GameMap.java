@@ -3,6 +3,8 @@ package Entity;
 import Entity.Creature.Creature;
 import Entity.Creature.Herbivore;
 import Entity.Creature.Predator;
+import Entity.Inanimate.Grass;
+import Entity.Inanimate.Inanimate;
 
 import java.util.ArrayList;
 
@@ -13,19 +15,21 @@ public class GameMap {
     private final static String defaultTexture = " * ";
     public static ArrayList<Creature> listOfPredators = new ArrayList<>();
     public static ArrayList<Creature> listOfHerbivores = new ArrayList<>();
+    public static ArrayList<Inanimate> listOfGrasses = new ArrayList<>();
 
-    public static void fillingListOfEntity() {
+    public static void fillingListOfCreature() {
         Predator predator1 = new Predator(new Coordinates(1, 1));
-        //Predator predator2 = new Predator(new Coordinates(2, 2));
-        //Predator predator3 = new Predator(new Coordinates(3, 3));
         listOfPredators.add(predator1);
-        //listOfPredators.put(predator2.getCoordinates(), predator2);
-        //listOfPredators.put(predator3.getCoordinates(), predator3);
 
         Herbivore herbivore1 = new Herbivore(new Coordinates(5, 9));
         Herbivore herbivore2 = new Herbivore(new Coordinates(0, 9));
         listOfHerbivores.add(herbivore1);
         listOfHerbivores.add(herbivore2);
+    }
+
+    public static void fillingListOfInanimate() {
+        Grass grass1 = new Grass(new Coordinates(9, 1));
+        listOfGrasses.add(grass1);
     }
 
 //    public void createGameMap(){
@@ -46,11 +50,11 @@ public class GameMap {
         for (int i = 0; i < y; i++) {
             for (int j = 0; j < x; j++) {
                 boolean drawDefaultTexture = true;
-                for (Entity creature : listOfPredators) {
-                    Coordinates coordinates = creature.getCoordinates();
+                for (Entity predator : listOfPredators) {
+                    Coordinates coordinates = predator.getCoordinates();
                     if (coordinates.getY() == i && coordinates.getX() == j) {
                         drawDefaultTexture = false;
-                        System.out.print(creature.getTexture());
+                        System.out.print(predator.getTexture());
                     }
                 }
                 for (Creature herbivore : listOfHerbivores) {
@@ -58,6 +62,15 @@ public class GameMap {
                     if (coordinates.getY() == i && coordinates.getX() == j) {
                         drawDefaultTexture = false;
                         System.out.print(herbivore.getTexture());
+                    }
+                }
+                if (drawDefaultTexture) {
+                    for (Inanimate grass : listOfGrasses) {
+                        Coordinates coordinates = grass.getCoordinates();
+                        if (coordinates.getY() == i && coordinates.getX() == j) {
+                            drawDefaultTexture = false;
+                            System.out.print(grass.getTexture());
+                        }
                     }
                 }
                 if (drawDefaultTexture) {
