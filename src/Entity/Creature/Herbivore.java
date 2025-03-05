@@ -2,6 +2,7 @@ package Entity.Creature;
 
 import Entity.Coordinates;
 import Entity.Entity;
+import Entity.Inanimate.Inanimate;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,14 +22,30 @@ public class Herbivore implements Creature {
         return coordinates;
     }
 
-    @Override
-    public void makeMove(ArrayList<Creature> listOfEntity) {
-
+    //@Override
+    public void makeMove(ArrayList<Inanimate> listOfGrasses) {
+        takeStep(searchMeal(listOfGrasses));
     }
 
-    @Override
-    public void eat(ArrayList<Creature> listOfEntity) {
-
+    //@Override
+    public void eat(ArrayList<Inanimate> listOfGrasses) {
+        ArrayList<Coordinates> coordinatesOfPotentialMeal = new ArrayList<>();
+        coordinatesOfPotentialMeal.add(new Coordinates(coordinates.getX(), coordinates.getY() + 1));
+        coordinatesOfPotentialMeal.add(new Coordinates(coordinates.getX() + 1, coordinates.getY()));
+        coordinatesOfPotentialMeal.add(new Coordinates(coordinates.getX(), coordinates.getY() - 1));
+        coordinatesOfPotentialMeal.add(new Coordinates(coordinates.getX() - 1, coordinates.getY()));
+        Iterator<Inanimate> iterator = listOfGrasses.iterator();
+        while (iterator.hasNext()) {
+            Inanimate grass = iterator.next();
+            for (Coordinates coordinatesOPM : coordinatesOfPotentialMeal) {
+                if (grass.getCoordinates().getX() == coordinatesOPM.getX() &&
+                        grass.getCoordinates().getY() == coordinatesOPM.getY()) {
+                    iterator.remove();
+                    System.out.println("Herbivore eats grass");
+                    break;
+                }
+            }
+        }
     }
 
 
@@ -37,9 +54,40 @@ public class Herbivore implements Creature {
         return texture;
     }
 
-    public Coordinates searchMeal(ArrayList<Entity> listOfEntity) {
+    public Coordinates searchMeal(ArrayList<Inanimate> listOfGrass) {
+        int distance = Integer.MAX_VALUE;
+        Coordinates targetCoordinates = coordinates.getCoordinates();
+        for (Inanimate Grass : listOfGrass) {
+            int variableDistance = Math.abs(Grass.getCoordinates().getSumOfCoordinates()
+                    - coordinates.getSumOfCoordinates());
+            if (variableDistance < distance) {
+                distance = variableDistance;
+                targetCoordinates = Grass.getCoordinates();
+            }
+        }
+        System.out.println(distance);
+        return targetCoordinates;
+    }
 
-        return null;
+    public void takeStep(Coordinates targetCoordinates) {
+        int distanceX = Math.abs(targetCoordinates.getX() - coordinates.getX());
+        int distanceY = Math.abs(targetCoordinates.getY() - coordinates.getY());
+        if (distanceX >= distanceY && (distanceX != 0 || distanceY != 0)) {
+            if (targetCoordinates.getX() > coordinates.getX()) {
+                coordinates.setX(coordinates.getX() + speed);
+            }
+            if (targetCoordinates.getX() < coordinates.getX()) {
+                coordinates.setX(coordinates.getX() - speed);
+            }
+        }
+        if (distanceY > distanceX) {
+            if (targetCoordinates.getY() > coordinates.getY()) {
+                coordinates.setY(coordinates.getY() + speed);
+            }
+            if (targetCoordinates.getY() < coordinates.getY()) {
+                coordinates.setY(coordinates.getY() - speed);
+            }
+        }
     }
 
     public void death(ArrayList<Herbivore> listOfHerbivores, Coordinates coordinatesOfPotentialMeal) {

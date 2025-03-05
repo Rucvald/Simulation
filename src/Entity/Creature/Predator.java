@@ -61,7 +61,7 @@ public class Predator implements Creature {
         this.coordinates = coordinates;
     }
 
-    @Override
+    //@Override
     public void makeMove(ArrayList<Creature> listOfHerbivores) {
         takeStep(searchMeal(listOfHerbivores));
     }
