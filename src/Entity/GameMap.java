@@ -21,21 +21,37 @@ public class GameMap {
     public static ArrayList<Entity> listOfEntity = new ArrayList<>();
 
     public static void fillingListOfCreature() {
-        Predator predator1 = new Predator(new Coordinates(1, 1));
+        Predator predator1 = new Predator(Coordinates.setCoordinates());
         listOfPredators.add(predator1);
 
-        Herbivore herbivore1 = new Herbivore(new Coordinates(5, 9));
-        Herbivore herbivore2 = new Herbivore(new Coordinates(0, 9));
+        Herbivore herbivore1 = new Herbivore(Coordinates.setCoordinates());
+        Herbivore herbivore2 = new Herbivore(Coordinates.setCoordinates());
+        //Herbivore herbivore3 = new Herbivore(Coordinates.setCoordinates());
+        //Herbivore herbivore4 = new Herbivore(Coordinates.setCoordinates());
         listOfHerbivores.add(herbivore1);
         listOfHerbivores.add(herbivore2);
+        //listOfHerbivores.add(herbivore3);
+        //listOfHerbivores.add(herbivore4);
     }
 
     public static void fillingListOfInanimate() {
-        Grass grass1 = new Grass(new Coordinates(9, 1));
+        Grass grass1 = new Grass(Coordinates.setCoordinates());
+        Grass grass2 = new Grass(Coordinates.setCoordinates());
+        Grass grass3 = new Grass(Coordinates.setCoordinates());
+        Grass grass4 = new Grass(Coordinates.setCoordinates());
         listOfGrasses.add(grass1);
+        listOfGrasses.add(grass2);
+        listOfGrasses.add(grass3);
+        listOfGrasses.add(grass4);
 
-        Rock rock1 = new Rock(new Coordinates(5, 8));
+        Rock rock1 = new Rock(Coordinates.setCoordinates());
+        Rock rock2 = new Rock(Coordinates.setCoordinates());
+        Rock rock3 = new Rock(Coordinates.setCoordinates());
+        Rock rock4 = new Rock(Coordinates.setCoordinates());
         listOfRocks.add(rock1);
+        listOfRocks.add(rock2);
+        listOfRocks.add(rock3);
+        listOfRocks.add(rock4);
     }
 
 //    public void createGameMap(){

@@ -8,8 +8,6 @@ import Entity.GameMap;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static Entity.GameMap.listOfGrasses;
-
 public class Herbivore implements Creature {
 
     private Coordinates coordinates;
@@ -57,17 +55,16 @@ public class Herbivore implements Creature {
     }
 
     public Coordinates searchMeal(ArrayList<Inanimate> listOfGrass) {
-        int distance = Integer.MAX_VALUE;
+        int numberOfSteps = Integer.MAX_VALUE;
         Coordinates targetCoordinates = coordinates.getCoordinates();
-        for (Inanimate Grass : listOfGrass) {
-            int variableDistance = Math.abs(Grass.getCoordinates().getSumOfCoordinates()
+        for (Inanimate grass : listOfGrass) {
+            int variablenumberOfSteps = Math.abs(grass.getCoordinates().getSumOfCoordinates()
                     - coordinates.getSumOfCoordinates());
-            if (variableDistance < distance) {
-                distance = variableDistance;
-                targetCoordinates = Grass.getCoordinates();
+            if (variablenumberOfSteps < numberOfSteps) {
+                numberOfSteps = variablenumberOfSteps;
+                targetCoordinates = grass.getCoordinates();
             }
         }
-        System.out.println(distance);
         return targetCoordinates;
     }
 

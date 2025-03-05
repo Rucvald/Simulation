@@ -1,6 +1,8 @@
 package Entity;
 
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 
 public class Coordinates {
 
@@ -45,5 +47,25 @@ public class Coordinates {
 
     public int getSumOfCoordinates() {
         return x + y;
+    }
+
+    public static Coordinates setCoordinates() {
+        ArrayList<Entity> entity = GameMap.getListOfEntity();
+        int x, y;
+        Random random = new Random();
+        while (true) {
+            boolean check = true;
+            x = random.nextInt(10);
+            y = random.nextInt(10);
+            for (Entity e : entity) {
+                if (e.getCoordinates().getX() == x && e.getCoordinates().getY() == y) {
+                    check = false;
+                    break;
+                }
+            }
+            if (check) {
+                return new Coordinates(x, y);
+            }
+        }
     }
 }
