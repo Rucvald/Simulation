@@ -14,10 +14,10 @@ public class GameMap {
     private final static int x = 10;
     private final static int y = 10;
     private final static String defaultTexture = " * ";
-    public static ArrayList<Creature> listOfPredators = new ArrayList<>();
-    public static ArrayList<Creature> listOfHerbivores = new ArrayList<>();
-    public static ArrayList<Inanimate> listOfGrasses = new ArrayList<>();
-    public static ArrayList<Inanimate> listOfRocks = new ArrayList<>();
+    public static ArrayList<Predator> listOfPredators = new ArrayList<>();
+    public static ArrayList<Herbivore> listOfHerbivores = new ArrayList<>();
+    public static ArrayList<Grass> listOfGrasses = new ArrayList<>();
+    public static ArrayList<Rock> listOfRocks = new ArrayList<>();
     public static ArrayList<Entity> listOfEntity = new ArrayList<>();
 
     public static void fillingListOfCreature() {
@@ -26,12 +26,8 @@ public class GameMap {
 
         Herbivore herbivore1 = new Herbivore(Coordinates.setCoordinates());
         Herbivore herbivore2 = new Herbivore(Coordinates.setCoordinates());
-        //Herbivore herbivore3 = new Herbivore(Coordinates.setCoordinates());
-        //Herbivore herbivore4 = new Herbivore(Coordinates.setCoordinates());
         listOfHerbivores.add(herbivore1);
         listOfHerbivores.add(herbivore2);
-        //listOfHerbivores.add(herbivore3);
-        //listOfHerbivores.add(herbivore4);
     }
 
     public static void fillingListOfInanimate() {
@@ -52,19 +48,6 @@ public class GameMap {
         listOfRocks.add(rock2);
         listOfRocks.add(rock3);
         listOfRocks.add(rock4);
-    }
-
-//    public void createGameMap(){
-//        Predator predator1 = new Predator(new Coordinates(1, 1));
-//        for(int i = 0; i < y; i++){
-//            for(int j = 0; j < x; j++){
-//                gameMap.put(predator1.getCoordinates(), predator1);
-//            }
-//        }
-//    }
-
-    public String getTexture() {
-        return defaultTexture;
     }
 
     public static void printGameMap() {
@@ -101,7 +84,7 @@ public class GameMap {
                     }
                 }
                 if (drawDefaultTexture) {
-                    System.out.print(" * ");
+                    System.out.print(defaultTexture);
                 }
             }
             System.out.println();

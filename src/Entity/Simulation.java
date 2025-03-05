@@ -1,9 +1,8 @@
 package Entity;
 
-import Entity.Creature.Creature;
 import Entity.Creature.Herbivore;
 import Entity.Creature.Predator;
-import Entity.Inanimate.Inanimate;
+import Entity.Inanimate.Grass;
 
 import java.util.ArrayList;
 
@@ -25,19 +24,19 @@ public class Simulation {
         }
     }
 
-    public static void lifeCycleOfPredator(ArrayList<Creature> listOfPredators, ArrayList<Creature> listOfHerbivores) {
-        for (Creature predator : listOfPredators) {
-            ((Predator) predator).eat(listOfHerbivores);
-            ((Predator) predator).makeMove(listOfHerbivores);
-            ((Predator) predator).eat(listOfHerbivores);
+    public static void lifeCycleOfPredator(ArrayList<Predator> listOfPredators, ArrayList<Herbivore> listOfHerbivores) {
+        for (Predator predator : listOfPredators) {
+            predator.eat(listOfHerbivores);
+            predator.makeMove(listOfHerbivores);
+            predator.eat(listOfHerbivores);
         }
     }
 
-    public static void lifeCycleOfHerbivore(ArrayList<Creature> listOfHerbivores, ArrayList<Inanimate> listOfGrasses) {
-        for (Creature herbivore : listOfHerbivores) {
-            ((Herbivore) herbivore).eat(listOfGrasses);
-            ((Herbivore) herbivore).makeMove(listOfGrasses);
-            ((Herbivore) herbivore).eat(listOfGrasses);
+    public static void lifeCycleOfHerbivore(ArrayList<Herbivore> listOfHerbivores, ArrayList<Grass> listOfGrasses) {
+        for (Herbivore herbivore : listOfHerbivores) {
+            herbivore.eat(listOfGrasses);
+            herbivore.makeMove(listOfGrasses);
+            herbivore.eat(listOfGrasses);
         }
     }
 }
