@@ -76,18 +76,58 @@ public class Herbivore implements Creature {
         int distanceY = Math.abs(targetCoordinates.getY() - coordinates.getY());
         if (distanceX >= distanceY && (distanceX != 0 || distanceY != 0)) {
             if (targetCoordinates.getX() > coordinates.getX()) {
-                coordinates.setX(coordinates.getX() + speed);
+                if (checkRoadForBlock(new Coordinates(coordinates.getX() + speed, coordinates.getY()))) {
+                    coordinates.setX(coordinates.getX() + speed);
+                }
+                else{
+                    if (targetCoordinates.getY() > coordinates.getY()){
+                        coordinates.setY(coordinates.getY() + speed);
+                    }
+                    if (targetCoordinates.getY() < coordinates.getY()){
+                        coordinates.setY(coordinates.getY() - speed);
+                    }
+                }
             }
             if (targetCoordinates.getX() < coordinates.getX()) {
-                coordinates.setX(coordinates.getX() - speed);
+                if (checkRoadForBlock(new Coordinates(coordinates.getX() - speed, coordinates.getY()))) {
+                    coordinates.setX(coordinates.getX() - speed);
+                }
+                else{
+                    if (targetCoordinates.getY() > coordinates.getY()){
+                        coordinates.setY(coordinates.getY() + speed);
+                    }
+                    if (targetCoordinates.getY() < coordinates.getY()){
+                        coordinates.setY(coordinates.getY() - speed);
+                    }
+                }
             }
         }
         if (distanceY > distanceX) {
             if (targetCoordinates.getY() > coordinates.getY()) {
-                coordinates.setY(coordinates.getY() + speed);
+                if (checkRoadForBlock(new Coordinates(coordinates.getX(), coordinates.getY() + speed ))) {
+                    coordinates.setY(coordinates.getY() + speed);
+                }
+                else{
+                    if (targetCoordinates.getX() > coordinates.getX()){
+                        coordinates.setX(coordinates.getX() + speed);
+                    }
+                    if (targetCoordinates.getX() < coordinates.getX()){
+                        coordinates.setX(coordinates.getX() - speed);
+                    }
+                }
             }
             if (targetCoordinates.getY() < coordinates.getY()) {
-                coordinates.setY(coordinates.getY() - speed);
+                if (checkRoadForBlock(new Coordinates(coordinates.getX(), coordinates.getY() - speed ))) {
+                    coordinates.setY(coordinates.getY() - speed);
+                }
+                else{
+                    if (targetCoordinates.getX() > coordinates.getX()){
+                        coordinates.setX(coordinates.getX() + speed);
+                    }
+                    if (targetCoordinates.getX() < coordinates.getX()){
+                        coordinates.setX(coordinates.getX() - speed);
+                    }
+                }
             }
         }
     }
@@ -106,9 +146,11 @@ public class Herbivore implements Creature {
         for (Entity entity : listOfEntity) {
             if (entity.getCoordinates().getX() == coordinatesOfPotentialBlock.getX()
                     && entity.getCoordinates().getY() == coordinatesOfPotentialBlock.getY()) {
+                GameMap.clearListOfEntity();
                 return false;
             }
         }
+        GameMap.clearListOfEntity();
         return true;
     }
 }

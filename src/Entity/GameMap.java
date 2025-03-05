@@ -5,6 +5,7 @@ import Entity.Creature.Herbivore;
 import Entity.Creature.Predator;
 import Entity.Inanimate.Grass;
 import Entity.Inanimate.Inanimate;
+import Entity.Inanimate.Rock;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class GameMap {
     public static ArrayList<Creature> listOfPredators = new ArrayList<>();
     public static ArrayList<Creature> listOfHerbivores = new ArrayList<>();
     public static ArrayList<Inanimate> listOfGrasses = new ArrayList<>();
+    public static ArrayList<Inanimate> listOfRocks = new ArrayList<>();
     public static ArrayList<Entity> listOfEntity = new ArrayList<>();
 
     public static void fillingListOfCreature() {
@@ -31,6 +33,9 @@ public class GameMap {
     public static void fillingListOfInanimate() {
         Grass grass1 = new Grass(new Coordinates(9, 1));
         listOfGrasses.add(grass1);
+
+        Rock rock1 = new Rock(new Coordinates(5, 8));
+        listOfRocks.add(rock1);
     }
 
 //    public void createGameMap(){
@@ -65,13 +70,18 @@ public class GameMap {
                         System.out.print(herbivore.getTexture());
                     }
                 }
-                if (drawDefaultTexture) {
-                    for (Inanimate grass : listOfGrasses) {
-                        Coordinates coordinates = grass.getCoordinates();
-                        if (coordinates.getY() == i && coordinates.getX() == j) {
-                            drawDefaultTexture = false;
-                            System.out.print(grass.getTexture());
-                        }
+                for (Inanimate grass : listOfGrasses) {
+                    Coordinates coordinates = grass.getCoordinates();
+                    if (coordinates.getY() == i && coordinates.getX() == j) {
+                        drawDefaultTexture = false;
+                        System.out.print(grass.getTexture());
+                    }
+                }
+                for (Inanimate rock : listOfRocks) {
+                    Coordinates coordinates = rock.getCoordinates();
+                    if (coordinates.getY() == i && coordinates.getX() == j) {
+                        drawDefaultTexture = false;
+                        System.out.print(rock.getTexture());
                     }
                 }
                 if (drawDefaultTexture) {
@@ -89,8 +99,10 @@ public class GameMap {
         listOfEntity.addAll(listOfPredators);
         listOfEntity.addAll(listOfHerbivores);
         listOfEntity.addAll(listOfGrasses);
+        listOfEntity.addAll(listOfRocks);
         return listOfEntity;
     }
+
     public static void clearListOfEntity() {
         listOfEntity.clear();
     }
