@@ -3,10 +3,12 @@ package Entity.Creature;
 import Entity.Coordinates;
 import Entity.Entity;
 import Entity.Inanimate.Inanimate;
+import Entity.GameMap;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
+
+import static Entity.GameMap.listOfGrasses;
 
 public class Herbivore implements Creature {
 
@@ -97,5 +99,16 @@ public class Herbivore implements Creature {
                 iterator.remove();
             }
         }
+    }
+
+    public boolean checkRoadForBlock(Coordinates coordinatesOfPotentialBlock) {
+        ArrayList<Entity> listOfEntity = GameMap.getListOfEntity();
+        for (Entity entity : listOfEntity) {
+            if (entity.getCoordinates().getX() == coordinatesOfPotentialBlock.getX()
+                    && entity.getCoordinates().getY() == coordinatesOfPotentialBlock.getY()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

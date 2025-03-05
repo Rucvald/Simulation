@@ -16,6 +16,7 @@ public class GameMap {
     public static ArrayList<Creature> listOfPredators = new ArrayList<>();
     public static ArrayList<Creature> listOfHerbivores = new ArrayList<>();
     public static ArrayList<Inanimate> listOfGrasses = new ArrayList<>();
+    public static ArrayList<Entity> listOfEntity = new ArrayList<>();
 
     public static void fillingListOfCreature() {
         Predator predator1 = new Predator(new Coordinates(1, 1));
@@ -84,11 +85,14 @@ public class GameMap {
         System.out.println();
     }
 
-    public static void getListOfEntity() {
-        for (Entity entity : listOfPredators) {
-            System.out.print(entity.toString());
-        }
+    public static ArrayList<Entity> getListOfEntity() {
+        listOfEntity.addAll(listOfPredators);
+        listOfEntity.addAll(listOfHerbivores);
+        listOfEntity.addAll(listOfGrasses);
+        return listOfEntity;
     }
-
+    public static void clearListOfEntity() {
+        listOfEntity.clear();
+    }
 
 }
